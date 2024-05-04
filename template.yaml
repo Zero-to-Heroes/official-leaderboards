@@ -1,0 +1,31 @@
+# https://github.com/awslabs/serverless-application-model/blob/develop/versions/2016-10-31.md
+# Indentation needs to be set with spaces, because YAML...
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+
+Resources:
+    UpdateBattlegroundsLeaderboard:
+        Type: AWS::Serverless::Function
+        Properties:
+            Handler: cron/update-battlegrounds-leaderboard.default
+            Runtime: nodejs18.x
+            Timeout: 900
+            MemorySize: 256
+            CodeUri: ./dist/cron/update-battlegrounds-leaderboard
+            # Layers:
+            #     - !Sub "arn:aws:lambda:${AWS::Region}:580247275435:layer:LambdaInsightsExtension:14"
+            Policies:
+                - AWSLambdaVPCAccessExecutionRole
+                - AmazonSESFullAccess
+                - SecretsManagerReadWrite
+                - AmazonS3FullAccess
+                - arn:aws:iam::aws:policy/CloudWatchLambdaInsightsExecutionRolePolicy
+                # - arn:aws:iam::478062583808:policy/CloudWatchPolicyForLambda # See https://stackoverflow.com/questions/51166504/disable-cloudwatch-to-monitor-logs-for-lambda-function
+            Tags:
+                LambdaName: cron-update-battlegrounds-leaderboard
+            Events:
+                CronTrigger:
+                    Type: Schedule
+                    Properties:
+                        # Every hour
+                        Schedule: cron(25 * * * ? *)
