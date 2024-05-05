@@ -4,5 +4,5 @@ import { Context } from 'aws-lambda';
 import { buildLeaderboards } from './bg-leaderboards-common';
 
 export default async (event, context: Context): Promise<any> => {
-	return buildLeaderboards(event, context, 'battlegrounds');
+	return buildLeaderboards(event, context, 'battlegroundsduo');
 };
