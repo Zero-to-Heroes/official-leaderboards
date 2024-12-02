@@ -4,7 +4,7 @@ export interface OfficialLeaderboardResult {
 }
 
 export interface OfficialLeaderboard {
-	readonly region: 'US' | 'EU' | 'AP';
+	readonly region: 'US' | 'EU' | 'AP' | 'CN';
 	readonly entries: LeaderboardEntry[];
 }
 

@@ -6,7 +6,7 @@ import { Context } from 'aws-lambda';
 import { LeaderboardEntry, OfficialLeaderboard, OfficialLeaderboardResult } from 'src/model/leaderboard';
 import { persistData } from './s3-saver';
 
-const regions = ['US', 'EU', 'AP'];
+const regions = ['US', 'EU', 'AP', 'CN'];
 const batchSize = 20;
 
 export const buildLeaderboards = async (
@@ -23,7 +23,7 @@ export const buildLeaderboards = async (
 	};
 	for (let i = 0; i < regions.length; i++) {
 		const leaderboardForRegion: OfficialLeaderboard = {
-			region: regions[i] as 'US' | 'EU' | 'AP',
+			region: regions[i] as 'US' | 'EU' | 'AP' | 'CN',
 			entries: [],
 		};
 		result.leaderboards.push(leaderboardForRegion);
